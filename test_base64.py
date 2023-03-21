@@ -4,7 +4,6 @@ import cv2
 from detect import detect
 
 base64_str = '' #base64_path
-vid_path = 'rtsp://admin:ai123456@192.168.0.142'
 detector = detect()
 
 while True:
