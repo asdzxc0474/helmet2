@@ -28,14 +28,14 @@ class detect():
         self.img =self.test_transform(self.img)
         self.img = self.img.unsqueeze(0)
         self.outputs = self.model(self.img.cuda())
-        print(str(self.outputs.data))
-        _,self.predicted = torch.max(self.outputs.data,1)
-        print(str(self.predicted))
-        if self.outputs.data[0][0]>=-2:
+        #print(str(self.outputs.data))
+        #_,self.predicted = torch.max(self.outputs.data,1)
+        print(str(self.outputs.data[0][0].cpu().numpy()))
+        if self.outputs.data[0][0].cpu().numpy()>=2:
             self.predicted = 0
-        elif self.outputs.data[0][0]<=-3:
+        elif self.outputs.data[0][0].cpu().numpy()<=-0.3:
             self.predicted = 1
         else:
             self.predicted = self.predicted
         cv2.putText(frame, self.label[self.predicted],(50,80),cv2.FONT_HERSHEY_SIMPLEX, 2.5, (0,0,255), 3, cv2.LINE_AA)
-        return frame
+        return frame , self.predicted
